@@ -34,3 +34,7 @@ contrast can be changed with a potentiometer installed on the shield.
 ## Used Shields
 1. [Adafruit Data Logger Shield](https://learn.adafruit.com/adafruit-data-logger-shield/overview)
 2. [Adafruit i2c 16x2 RGB LCD Shield](https://www.adafruit.com/product/714)
+
+## Used Sensors
+* [ACS712 20A current sensor](https://cdn-reichelt.de/documents/datenblatt/A300/ME067_DB-EN.pdf)
+* [DS18B20 temperature sensor](https://asset.conrad.com/media10/add/160267/c1/-/en/002361335DS00/datenblatt-2361335-tru-components-tc-9445340-temperatursensor-1-st-passend-fuer-entwicklungskits-arduino.pdf)

@@ -1,6 +1,10 @@
 # Arduino-Data-Logger-for-Lights
 A data logger for measuring current, voltage and temperature.
 
+> [!IMPORTANT]
+> This project is still in it's startup phase which means that a lot of things aren't well thought through.
+> The code of this project is partially based on the example project for the data logger shield from adafruit.
+
 ## Description
 A data logger built on using the adafruit Datalogging Arduino Shield on an Arduino Mega 2560 R3.
 3 types of different units can be measured right now: Current, Voltage, Temperature. The ammount of 

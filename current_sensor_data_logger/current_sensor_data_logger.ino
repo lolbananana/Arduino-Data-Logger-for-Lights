@@ -262,6 +262,7 @@ void loop(void)
   readButtons();
 
   if(startLogging){
+    sensors.requestTemperaturesByAddress(insideThermometer);
     dataLogger();
   }
 }
@@ -321,7 +322,6 @@ void dataLogger(){
   
   //***** reading sensor values *****
   //always be shure it's the right order because it has to match with the first row of the .csv file
-    sensors.requestTemperaturesByAddress(insideThermometer);
     currentSensors();
     voltageSensors();
     tempSensors(insideThermometer);

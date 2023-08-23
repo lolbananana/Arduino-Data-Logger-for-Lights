@@ -38,3 +38,9 @@ contrast can be changed with a potentiometer installed on the shield.
 ## Used Sensors
 * [ACS712 20A current sensor](https://cdn-reichelt.de/documents/datenblatt/A300/ME067_DB-EN.pdf)
 * [DS18B20 temperature sensor](https://asset.conrad.com/media10/add/160267/c1/-/en/002361335DS00/datenblatt-2361335-tru-components-tc-9445340-temperatursensor-1-st-passend-fuer-entwicklungskits-arduino.pdf)
+
+## Voltage Devider
+For measuring the voltage with the arduino we need a voltage devider as the analog inputs only can handle 0-5V. 
+The following code includes the formula for converting the input from the voltage devider into the real value:
+`float rawValue = analogRead(voltageSensorPins[i]);`
+`float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);`

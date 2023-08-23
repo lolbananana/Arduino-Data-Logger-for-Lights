@@ -304,7 +304,10 @@ void voltageSensors()
 }
 ```
 This function reads the analog inputs and converts the readings into usable values. `#if THRESHOLD_VOLTAGE` **changes** when selected the **sampling intervall**.
-The functions for the other sensor are built the same way. 
+The functions for the other sensors are built the same way. 
 
-##
+## Using the data logger
+  Now after uploading the whole sketch the LCD will show the booting screen and then the menu. After selecting start the arduino will start logging the data. 
+  If you set `ECHO_TO_SERIAL` to **'1'** this is what the serial output should look like:
+
   

@@ -307,7 +307,8 @@ This function reads the analog inputs and converts the readings into usable valu
 The functions for the other sensors are built the same way. 
 
 ## Using the data logger
-  Now after uploading the whole sketch the LCD will show the booting screen and then the menu. After selecting start the arduino will start logging the data. 
-  If you set `ECHO_TO_SERIAL` to **'1'** this is what the serial output should look like:
+Now after uploading the whole sketch the LCD will show the booting screen and then the menu. After selecting start the arduino will start logging the data. 
+If you set `ECHO_TO_SERIAL` to **'1'** this is what the serial output should look like:
 
+![serial output](/current_sensor_data_logger/images/Screenshot 2023-08-23 133940.png)
   

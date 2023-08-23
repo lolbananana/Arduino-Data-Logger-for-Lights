@@ -21,6 +21,11 @@ The design of the "LCD-menu" is fairely simply as it only contains start and sto
 To use as less pins as needed the LCD is only connected with 4 wires: VCC, GND, SDA, SCL (=i2c). The
 contrast can be changed with a potentiometer installed on the shield. 
 
+## Example build only with temperature sensor
+![temperature sensor build](/images/temp_sensor_sim.png)
+
+> Source: [WOKWI Simualtion](https://wokwi.com)
+
 ## Used Libaries
 * [<SPI.h>](https://www.arduino.cc/reference/en/language/functions/communication/spi/)
 * [<SD.h>](https://www.arduino.cc/reference/en/libraries/sd/)

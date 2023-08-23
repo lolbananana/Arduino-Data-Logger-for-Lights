@@ -160,7 +160,7 @@ This creates a new file every time the data logger is started/stopped. The index
 #endif  //ECHO_TO_SERIAL
   }
 ```
-Sends an error is the Real Time Clock isn't running properly.
+Sends an **error** if the Real Time Clock isn't running properly.
 
 #### printing the .csv headline
 ```c++
@@ -189,7 +189,7 @@ The ammount of collumns changes depending on how much sensor are beeing used. `#
   if (!sensors.getAddress(insideThermometer, 0)) error("Unable to find address for Device 0"); 
   #endif
 ```
-If no temp sensor is connected but you forgot to change `TEMP_SENSORS` to **'0'** then this error message is printed.  
+If **no** temp sensor is connected but you forgot to change `TEMP_SENSORS` to **'0'** then this error message appears.  
 
 #### readButtons()
 ```c++
@@ -212,7 +212,7 @@ void readButtons()
   }
 }
 ```
-This code uses the [<Adafruit_RGBLCDShield.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/) liabry to easily
+This code uses the [<Adafruit_RGBLCDShield.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/) libary to easily
 read the buttons of the LCD shield. 
 
 #### loop()
@@ -229,11 +229,82 @@ void loop(void)
   }
 }
 ```
-The `loop()` function only loops the button requests and startss the data logger when it was selected from the LCD menu. To save some time, 
-the temperature is only read if the sensor is connected. 
+The `loop()` function only loops the button requests and starts the data logger when it was selected from the LCD menu. To save some time, 
+the temperature is **only** read if the sensor is connected. 
 
 #### dataLogger()
 
+```c++
+void dataLogger(){
+  DateTime now;
 
+  // delay for the amount of time we want between readings
+  delay((LOG_INTERVAL -1) - (millis() % LOG_INTERVAL));
+  
+  digitalWrite(greenLEDpin, HIGH); //indicates that the data logging has started
+  
+  // log milliseconds since the uC has started
+  uint32_t m = millis();
+  logfile.print(m);           // milliseconds since start
+  logfile.print(", ");    
+#if ECHO_TO_SERIAL
+  Serial.print(m);         // milliseconds since start
+  Serial.print(", ");  
+#endif
+```
+`DateTime now;` sets the RTC to the date/time the computer is using. Also the millisenconds since 
+the arduino has **started** are being printed in the first collumn of the file. After approximately **50** days the `millis()` function 
+reaches an overflow and is set to **'0'** again. 
 
+#### printing the date/time
+```c++
+now = RTC.now();
+  // log time
+  logfile.print('"');
+  logfile.print(now.year(), DEC);
+  logfile.print("/");
+  logfile.print(now.month(), DEC);
+  logfile.print("/");
+  logfile.print(now.day(), DEC);
+  logfile.print(" ");
+  logfile.print(now.hour(), DEC);
+  logfile.print(":");
+  logfile.print(now.minute(), DEC);
+  logfile.print(":");
+  logfile.print(now.second(), DEC);
+  logfile.print('"');
+```
+
+#### writing to the SD
+```c++
+ if ((millis() - syncTime) < SYNC_INTERVAL) return;
+  syncTime = millis();
+```
+Now we write data to disk! Don't sync too often - requires 2048 bytes of I/O to SD card which uses a bunch of **power** and takes **time**.
+
+#### reading sensor values
+```c++
+void voltageSensors()
+{
+  for(int i=0; i < numVoltageSensors; i++)
+  {
+    float rawValue = analogRead(voltageSensorPins[i]);
+    float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);
+
+    logfile.print(", ");    
+    logfile.print(voltage, 3);
+
+    #if THRESHOLD_VOLTAGE
+      if(voltage >= voltageThreshold)
+        LOG_INTERVAL = INTERVAL_OPT;
+      else
+        LOG_INTERVAL = ORIG_LOG_INTERVAL;
+    #endif
+  }
+}
+```
+This function reads the analog inputs and converts the readings into usable values. `#if THRESHOLD_VOLTAGE` **changes** when selected the **sampling intervall**.
+The functions for the other sensor are built the same way. 
+
+##
   

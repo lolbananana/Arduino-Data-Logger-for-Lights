@@ -42,5 +42,7 @@ contrast can be changed with a potentiometer installed on the shield.
 ## Voltage Devider
 For measuring the voltage with the arduino we need a voltage devider as the analog inputs only can handle 0-5V. 
 The following code includes the formula for converting the input from the voltage devider into the real value:
-`float rawValue = analogRead(voltageSensorPins[i]);`
-`float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);`
+```
+float rawValue = analogRead(voltageSensorPins[i]);
+float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);
+```

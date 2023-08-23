@@ -41,8 +41,54 @@ contrast can be changed with a potentiometer installed on the shield.
 
 ## Voltage Devider
 For measuring the voltage with the arduino we need a voltage devider as the analog inputs only can handle 0-5V. 
+### Formula
+$U_1=U_{ges}*\frac{R_1}{(R_1+R_2)}$
+### Code
 The following code includes the formula for converting the input from the voltage devider into the real value:
 ```
 float rawValue = analogRead(voltageSensorPins[i]);
 float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);
 ```
+
+## Code Walkthrough
+### Defines
+* `ORIG_LOG_INTERVAL` defines the milliseconds for the sampling rate after starting the arduino
+* `SYNC_INTERVAL` is how many milliseconds between reading the data and writing it to the .csv file
+* `THRESHOLD_CURRENT` when set to **'1'** then the sampling rate changes to the defined value after reaching
+  the defined threshold for the current sensors (same for the other 3 threshold defines)
+* `INTERVAL_OPT` is the changed sampling rate after reaching one of the thresholds
+* `ECHO_TO_SERIAL` when set to **'1'** every output (what gets written into the file) is written to the serial output terminal (use for testing/debugging purposes)
+* `redLEDpin` defines the pin where the "errorLed" is connected to (same for the grren LED)
+* `TEMP_SENSORS` when set to **'1'** the temperature sensor values are beeing read and written to the file (set to **'0'** if no temp. sensor is connected)
+* `ECHO_TO_LCD` when set to **'1'** all error massages are beeing displayed on the LCD screen (set to **'1'** by default)
+
+### Functions
+#### error()
+```
+void error(char *str)
+{
+  Serial.print("error: ");
+  Serial.println(str);
+  digitalWrite(redLEDpin, 1);
+  #if ECHO_TO_LCD
+    lcd.clear();
+    lcd.print("error: ");
+    lcd.println(str);
+    while(1)
+    {
+      for(uint8_t i= 0; i < 25; i++)
+      {
+        lcd.scrollDisplayLeft();
+        delay(500);
+      }
+      lcd.home();
+    }
+  #endif
+  
+  // red LED indicates error
+  digitalWrite(redLEDpin, HIGH);
+
+  while(1);
+}
+```
+  

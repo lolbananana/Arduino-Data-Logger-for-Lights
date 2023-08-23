@@ -22,14 +22,14 @@ To use as less pins as needed the LCD is only connected with 4 wires: VCC, GND, 
 contrast can be changed with a potentiometer installed on the shield. 
 
 ## Used Libaries
-* <SPI.h>
-* <SD.h>
-* <Wire.h>
-* <RTClib.h>
-* <DallasTemperature.h>
-* <OneWire.h>
-* <Adafruit_RGBLCDShield.h>
-* <utility/Adafruit_MCP23017.h>
+* [<SPI.h>](https://www.arduino.cc/reference/en/language/functions/communication/spi/)
+* [<SD.h>](https://www.arduino.cc/reference/en/libraries/sd/)
+* [<Wire.h>](https://www.arduino.cc/reference/en/language/functions/communication/wire/)
+* [<RTClib.h>](https://www.arduino.cc/reference/en/libraries/rtclib/)
+* [<DallasTemperature.h>](https://www.arduino.cc/reference/en/libraries/dallastemperature/)
+* [<OneWire.h>](https://www.arduino.cc/reference/en/libraries/onewire/)
+* [<Adafruit_RGBLCDShield.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/)
+* [<utility/Adafruit_MCP23017.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/)
 
 ## Used Shields
 1. [Adafruit Data Logger Shield](https://learn.adafruit.com/adafruit-data-logger-shield/overview)

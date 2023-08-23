@@ -307,8 +307,21 @@ This function reads the analog inputs and converts the readings into usable valu
 The functions for the other sensors are built the same way. 
 
 ## Using the data logger
-Now after uploading the whole sketch the LCD will show the booting screen and then the menu. After selecting start the arduino will start logging the data. 
+Now after uploading the whole sketch the LCD will show the booting screen and then the menu. After selecting **"Start"** the arduino will start logging the data. 
 If you set `ECHO_TO_SERIAL` to **'1'** this is what the serial output should look like:
 
-![serial output](/current_sensor_data_logger/images/Screenshot 2023-08-23 133940.png)
-  
+![serial output](/images/serial_output.png)
+
+Currently nothing's plugged in on the sensors but the current sensor still shows some values that aren't **0**. 
+Thats because these ACS712 sensors aren't that accurate but once you plugged in a current the values will be pretty "stable".
+
+Once you have checked that the data logger is running properly it's time to log the data and evaluate it. 
+
+### Start logging
+First it's important to check that the defined RTC matches with the one on our shield:
+```c++
+//the adafruit shield uses the PCF8523 RTC
+RTC_PCF8523 RTC; // define the Real Time Clock object
+```
+Then insert a SD card and press **Start** as shown on the LCD:
+

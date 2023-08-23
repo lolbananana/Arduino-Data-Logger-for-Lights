@@ -32,8 +32,8 @@ contrast can be changed with a potentiometer installed on the shield.
 * [<utility/Adafruit_MCP23017.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/)
 
 ## Used Shields
-1. [Adafruit Data Logger Shield](https://learn.adafruit.com/adafruit-data-logger-shield/overview)
-2. [Adafruit i2c 16x2 RGB LCD Shield](https://www.adafruit.com/product/714)
+* [Adafruit Data Logger Shield](https://learn.adafruit.com/adafruit-data-logger-shield/overview)
+* [Adafruit i2c 16x2 RGB LCD Shield](https://www.adafruit.com/product/714)
 
 ## Used Sensors
 * [ACS712 20A current sensor](https://cdn-reichelt.de/documents/datenblatt/A300/ME067_DB-EN.pdf)
@@ -45,7 +45,7 @@ For measuring the voltage with the arduino we need a voltage devider as the anal
 $U_1=U_{ges}*\frac{R_1}{(R_1+R_2)}$
 ### Code
 The following code includes the formula for converting the input from the voltage devider into the real value:
-```
+```c++
 float rawValue = analogRead(voltageSensorPins[i]);
 float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);
 ```
@@ -58,13 +58,13 @@ float voltage = rawValue * (5.0/1023.0) * ((R1+R2)/R2);
   the defined threshold for the current sensors (same for the other 3 threshold defines)
 * `INTERVAL_OPT` is the changed sampling rate after reaching one of the thresholds
 * `ECHO_TO_SERIAL` when set to **'1'** every output (what gets written into the file) is written to the serial output terminal (use for testing/debugging purposes)
-* `redLEDpin` defines the pin where the "errorLed" is connected to (same for the grren LED)
+* `redLEDpin` defines the pin where the "errorLed" is connected to (same for the green LED)
 * `TEMP_SENSORS` when set to **'1'** the temperature sensor values are beeing read and written to the file (set to **'0'** if no temp. sensor is connected)
 * `ECHO_TO_LCD` when set to **'1'** all error massages are beeing displayed on the LCD screen (set to **'1'** by default)
 
 ### Functions
 #### error()
-```
+```c++
 void error(char *str)
 {
   Serial.print("error: ");
@@ -91,4 +91,149 @@ void error(char *str)
   while(1);
 }
 ```
+The `error()` function recieves a string with the **error massage** in it which then gets printed into the serial output and to the LCD if `ECHO_TO_LCD`
+is set to anything but **'0'**.It turns on the red LED and sits in an infinite loop (`while(1);`).
+
+#### setupLcd()
+```c++
+void setupLcd()
+{
+  // set up the LCD's number of columns and rows: 
+  lcd.begin(16, 2);
+  lcd.print("DATA LOGGER 1.0");
+  lcd.setCursor(0, 1);
+  lcd.print(" >START   STOP ");
+}
+```
+`setupLcd()` is used to set the default menu screen on the LCD (`welcomeLcd()` is built the same way and shows a booting screen for 1.5 sec)
+
+#### setup()
+```c++
+void setup(void)
+{
+  Serial.begin(9600);
+  Serial.println();
+
+  // initialize the SD card
+  Serial.print("Initializing SD card...");
+  // make sure that the default chip select pin is set to
+  // output, even if you don't use it:
+  pinMode(10, OUTPUT);
+  
+  // see if the card is present and can be initialized:
+  if (!SD.begin(chipSelect)) {
+    error("Card failed, or not present");
+  }
+  Serial.println("card initialized.");
+```
+This code initializes the SD card and sends an error if no card is inserted or the pin is corrupted.
+
+#### creating a new file
+```c++
+char filename[] = "LOGGER00.CSV";
+  for (uint8_t i = 0; i < 100; i++) {
+    filename[6] = i/10 + '0';
+    filename[7] = i%10 + '0';
+    if (! SD.exists(filename)) {
+      // only open a new file if it doesn't exist
+      logfile = SD.open(filename, FILE_WRITE); 
+      break;  // leave the loop!
+    }
+  }
+  
+  if (! logfile) {
+    error("couldnt create file");
+  }
+  
+  Serial.print("Logging to: ");
+  Serial.println(filename); //writes the current Filename into the serial output
+```
+This creates a new file every time the data logger is started/stopped. The index of `filename[]` gets increased every time the filename already exists. 
+
+#### initializing the RTC
+```c++
+  Wire.begin();  
+  if (!RTC.begin()) {
+    logfile.println("RTC failed"); // checks if the real time clock is running
+#if ECHO_TO_SERIAL
+    Serial.println("RTC failed");
+#endif  //ECHO_TO_SERIAL
+  }
+```
+Sends an error is the Real Time Clock isn't running properly.
+
+#### printing the .csv headline
+```c++
+logfile.print("millis,datetime");
+  for(int i=0; i<numCurrentSensors; i++)
+  {
+    logfile.print(",current");
+    logfile.print(i);
+  }
+
+  for(int i=0; i<numVoltageSensors; i++)
+  {
+    logfile.print(",voltage");
+    logfile.print((i+1));
+  }
+  #if TEMP_SENSORS
+  logfile.print(",temp1");
+  #endif
+```
+The ammount of collumns changes depending on how much sensor are beeing used. `#if TEMP_SENSORS` checks if a temp. sensor is connected.
+
+#### initialize temperature sensor
+```c++
+  #if TEMP_SENSORS
+  sensors.setResolution(insideThermometer, TEMP_RESOLUTION);
+  if (!sensors.getAddress(insideThermometer, 0)) error("Unable to find address for Device 0"); 
+  #endif
+```
+If no temp sensor is connected but you forgot to change `TEMP_SENSORS` to **'0'** then this error message is printed.  
+
+#### readButtons()
+```c++
+void readButtons()
+{
+  uint8_t buttons = lcd.readButtons();
+  
+  if (buttons) {
+    if (buttons & BUTTON_LEFT) {
+      currentElement = ELEMENT_START;
+      updateDisplay();
+    }
+    if (buttons & BUTTON_RIGHT) {
+      currentElement = ELEMENT_STOP;
+      updateDisplay();
+    }
+    if (buttons & BUTTON_SELECT) {
+      executeSelectedFunction();
+    }
+  }
+}
+```
+This code uses the [<Adafruit_RGBLCDShield.h>](https://www.arduino.cc/reference/en/libraries/adafruit-rgb-lcd-shield-library/) liabry to easily
+read the buttons of the LCD shield. 
+
+#### loop()
+```c++
+void loop(void)
+{
+  readButtons();
+
+  if(startLogging){
+    #if TEMP_SENSORS
+    sensors.requestTemperaturesByAddress(insideThermometer);
+    #endif
+    dataLogger();
+  }
+}
+```
+The `loop()` function only loops the button requests and startss the data logger when it was selected from the LCD menu. To save some time, 
+the temperature is only read if the sensor is connected. 
+
+#### dataLogger()
+
+
+
   

@@ -351,3 +351,18 @@ Then insert a SD card and press **Start** as shown on the LCD:
 ![LCD menu screen](/images/LCD_simulation.png)
 > Source: [WOKWI Simualtion](https://wokwi.com/projects/307244658548802112)
 
+## Troubleshooting
+### error(): failed to create file
+If this error occours you've probably already reached the limit of 100 loggerfiles on your SD card. 
+
+### error(): Card failed, or not present
+If you have a card inserted but still get this error it means that either you've formatted the card the wrong way or the defined pin for the cs (card selsect) line is wrong. The Adafruit Data Logger uses pin 10. 
+**The Arduino SD Libary only supports FAT16 and FAT32 filesystems!**
+
+If you still have issues with recognising your SD card you should try to run the "CardInfo" example sketch from arduino which gives you more detailed information whats wrong. **Make sure to change the SD cs pin to 10!**
+
+### error(): Unable to find address for Device 0
+This error should omnly appear if no temperature snesor is connected but you still enabled it, your temperature sensor is connected to the wrong pin or the temperature sensor is faulty.
+
+## Thanks :blue_heart:
+* [@adafruit](https://github.com/adafruit) for providing such great libaries to every shield you make and in addition to that even give some great code examples

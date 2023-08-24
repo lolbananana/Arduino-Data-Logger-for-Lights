@@ -6,7 +6,7 @@ A data logger for measuring current, voltage and temperature.
 > The code of this project is partially based on the example project for the data logger shield from adafruit.
 
 ## Complete Data Logger Build 
-![temperature sensor build](/images/fritzing_circuit_complete.png)
+![temperature sensor build](/images/fritzing_circuit_complete1.png)
 
 ## Project pinout
 | Arduino Pin | Hardware Pin | Description |

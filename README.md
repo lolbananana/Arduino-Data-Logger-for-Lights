@@ -5,10 +5,8 @@ A data logger for measuring current, voltage and temperature.
 > This project is still in it's startup phase which means that a lot of things aren't well thought through.
 > The code of this project is partially based on the example project for the data logger shield from adafruit.
 
-## Example build only with temperature sensor
-![temperature sensor build](/images/temp_sensor_sim.png)
-
-> Source: [WOKWI Simualtion](https://wokwi.com)
+## Complete Data Logger Build 
+![temperature sensor build](/images/fritzing_circuit_complete.png)
 
 ## Project pinout
 | Arduino Pin | Hardware Pin | Description |
@@ -26,6 +24,7 @@ A data logger for measuring current, voltage and temperature.
 |**A14**|vol. OUT 3|Analog input from the third voltage devider|
 |**A15**|vol. OUT 4|Analog input from the fourth voltage devider|
 |**10**|SD cs line|Digital port for communication with the SD|
+|**24**|DS18B20|Digital port for communication with the temperature sensor|
 
 
 ## Description

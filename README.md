@@ -128,7 +128,7 @@ void setupLcd()
   lcd.print(" >START   STOP ");
 }
 ```
-`setupLcd()` is used to set the default menu screen on the LCD (`welcomeLcd()` is built the same way and shows a booting screen for 1.5 sec)
+`setupLcd()` is used to set the default menu screen on the LCD `welcomeLcd()` is built the same way and shows a booting screen for 1.5 sec)
 
 #### setup()
 ```c++

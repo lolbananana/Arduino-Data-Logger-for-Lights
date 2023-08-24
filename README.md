@@ -5,6 +5,29 @@ A data logger for measuring current, voltage and temperature.
 > This project is still in it's startup phase which means that a lot of things aren't well thought through.
 > The code of this project is partially based on the example project for the data logger shield from adafruit.
 
+## Example build only with temperature sensor
+![temperature sensor build](/images/temp_sensor_sim.png)
+
+> Source: [WOKWI Simualtion](https://wokwi.com)
+
+## Project pinout
+| Arduino Pin | Hardware Pin | Description |
+|:---:|:---:|:---|
+|**A0**|cur. OUT 1|Analog input from the first current sensor|
+|**A1**|cur. OUT 2|Analog input from the second current sensor|
+|**A2**|cur. OUT 3|Analog input from the third current sensor|
+|**A3**|cur. OUT 4|Analog input from the fourth current sensor|
+|**SDA (20)**|LCD pin10|Serial Data output for the LCD screen|
+|**SCL (21)**|LCD pin11|Serial Clock output for the LCD screen|
+|**25**|redLed (+)|Digital Output for the "error" LED (+ resistor)|
+|**22**|greenLed (+)|Digital Output for the "logging" LED (+ resistor)|
+|**A12**|vol. OUT 1|Analog input from the first voltage devider|
+|**A13**|vol. OUT 2|Analog input from the second voltage devider|
+|**A14**|vol. OUT 3|Analog input from the third voltage devider|
+|**A15**|vol. OUT 4|Analog input from the fourth voltage devider|
+|**10**|SD cs line|Digital port for communication with the SD|
+
+
 ## Description
 A data logger built on using the adafruit Datalogging Arduino Shield on an Arduino Mega 2560 R3.
 3 types of different units can be measured right now: Current, Voltage, Temperature. The ammount of 
@@ -20,11 +43,6 @@ it already comes with preinstalled buttons which are already defined in their ow
 The design of the "LCD-menu" is fairely simply as it only contains start and stop as selectable options.
 To use as less pins as needed the LCD is only connected with 4 wires: VCC, GND, SDA, SCL (=i2c). The
 contrast can be changed with a potentiometer installed on the shield. 
-
-## Example build only with temperature sensor
-![temperature sensor build](/images/temp_sensor_sim.png)
-
-> Source: [WOKWI Simualtion](https://wokwi.com)
 
 ## Used Libaries
 * [<SPI.h>](https://www.arduino.cc/reference/en/language/functions/communication/spi/)

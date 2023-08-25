@@ -375,5 +375,8 @@ If you still have issues with recognising your SD card you should try to run the
 ### error(): Unable to find address for Device 0
 This error should omnly appear if no temperature snesor is connected but you still enabled it, your temperature sensor is connected to the wrong pin or the temperature sensor is faulty.
 
+### The RTC puts out weird data or the arduino isn't working correctly
+You MUST have a coin cell installed for the RTC to work, if there is no coin cell, it will act strangely and possibly hang the Arduino when you try to use it, so ALWAYS make SURE there's a battery installed, even if it's a dead battery.
+
 ## Thanks :blue_heart:
 * [@adafruit](https://github.com/adafruit) for providing such great libaries to every shield you make and in addition to that even give some great code examples

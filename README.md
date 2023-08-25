@@ -25,6 +25,7 @@ A data logger for measuring current, voltage and temperature.
 |**A15**|vol. OUT 4|Analog input from the fourth voltage devider|
 |**10**|SD cs line|Digital port for communication with the SD|
 |**24**|DS18B20|Digital port for communication with the temperature sensor|
+|**RESET**|LCD pin0|Connect if you want to use the LCD's reset button|
 
 
 ## Description

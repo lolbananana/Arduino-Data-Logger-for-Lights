@@ -74,7 +74,7 @@ const int R2 = 200;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //---- Temperature Sensors ----/////////////////////////////////////////////////////////////
-const int oneWireBus = 22; // data pin of the temperature sensor
+const int oneWireBus = 24; // data pin of the temperature sensor
 OneWire oneWire(oneWireBus);
 DallasTemperature sensors(&oneWire);
 const int TEMP_RESOLUTION = 9; // sets the resolution of the temperature sensor (9-12bit)

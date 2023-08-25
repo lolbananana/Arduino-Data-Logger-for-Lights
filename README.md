@@ -70,8 +70,8 @@ contrast can be changed with a potentiometer installed on the shield.
 * Two LED's (green, red) which can be configured the way you want.
 * Uses the R3 layout which can be important if you wan to use SPI or I2C ports.
 
-![adafruit data logger](/images/adafruit_data_logger.png)
-
+![adafruit data logger](/images/adafruit_data_logger.jpg)
+> SOURCE: [Adafruit](https://learn.adafruit.com/adafruit-data-logger-shield/shield-overview)
 
 ## Voltage Devider
 For measuring the voltage with the arduino we need a voltage devider as the analog inputs only can handle 0-5V. 

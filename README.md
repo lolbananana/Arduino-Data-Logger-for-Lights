@@ -28,6 +28,7 @@ A data logger for measuring current, voltage and temperature.
 |**RESET**|LCD pin0|Connect if you want to use the LCD's reset button|
 
 
+
 ## Description
 A data logger built on using the adafruit Datalogging Arduino Shield on an Arduino Mega 2560 R3.
 3 types of different units can be measured right now: Current, Voltage, Temperature. The ammount of 

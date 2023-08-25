@@ -349,8 +349,8 @@ RTC_PCF8523 RTC; // define the Real Time Clock object
 ```
 Then insert a SD card and press **Start** as shown on the LCD:
 
-![LCD menu screen](/images/LCD_simulation.png)
-> Source: [WOKWI Simualtion](https://wokwi.com/projects/307244658548802112)
+![LCD menu screen](/images/LCD_tinkercad_sim.png)
+> Source: [TINKERCAD](https://www.tinkercad.com/things/37q4quothUq-magnificent-habbi/editel?tenant=circuits)
 
 ## Troubleshooting
 ### error(): failed to create file

@@ -63,7 +63,7 @@ contrast can be changed with a potentiometer installed on the shield.
 * [ACS712 20A current sensor](https://cdn-reichelt.de/documents/datenblatt/A300/ME067_DB-EN.pdf)
 * [DS18B20 temperature sensor](https://asset.conrad.com/media10/add/160267/c1/-/en/002361335DS00/datenblatt-2361335-tru-components-tc-9445340-temperatursensor-1-st-passend-fuer-entwicklungskits-arduino.pdf)
 
-## Features of the Adafruit Data Logger
+## Features of the Adafruit Data Logger Shield
 * SD card interface works with FAT16 or FAT32 formatted cards. Built in 3.3v level shifter circuitry lets you read or write super fast and prevents damage to your SD card.
 * The RTC (Real Time Clock) keeps track of the time even if the arduino isn't powered as it uses a coin cell battery. You should only have to set temi once till the battery dies which should last years.
 * You've got a prototyping area if you want to build everything on top of the shield and dont use any breadboard or external circuits.

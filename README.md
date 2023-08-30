@@ -18,7 +18,7 @@ A data logger for measuring current, voltage and temperature.
 |**SDA (20)**|LCD pin10|Serial Data output for the LCD screen|
 |**SCL (21)**|LCD pin11|Serial Clock output for the LCD screen|
 |**25**|redLed (+)|Digital Output for the "error" LED (+ resistor)|
-|**22**|greenLed (+)|Digital Output for the "logging" LED (+ resistor)|
+|**26**|greenLed (+)|Digital Output for the "logging" LED (+ resistor)|
 |**A12**|vol. OUT 1|Analog input from the first voltage devider|
 |**A13**|vol. OUT 2|Analog input from the second voltage devider|
 |**A14**|vol. OUT 3|Analog input from the third voltage devider|
